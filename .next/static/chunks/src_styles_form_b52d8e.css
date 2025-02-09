@@ -1,0 +1,105 @@
+/* [project]/src/styles/form.css [app-client] (css) */
+.container {
+  border: 1px solid #8d8d8d;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .heading {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  font-weight: bolder;
+}
+
+.form {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form .btn-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.form .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-radius: 10px;
+  border: 1px solid #1034aa;
+  border-bottom: 1px solid #90c2ff;
+  background: linear-gradient(135deg, #0034de, #006eff);
+  color: #fff;
+  font-weight: bolder;
+  transition: all .2s;
+  box-shadow: 0 2px 3px #000d3848, inset 0 4px 5px #0070f0, inset 0 -4px 5px #002cbb;
+}
+
+.form .btn:active {
+  box-shadow: inset 0 4px 5px #0070f0, inset 0 -4px 5px #002cbb;
+  transform: scale(.995);
+}
+
+.input-field {
+  position: relative;
+}
+
+.input-field label {
+  position: absolute;
+  color: #8d8d8d;
+  pointer-events: none;
+  background-color: #0000;
+  left: 15px;
+  transform: translateY(.6rem);
+  transition: all .3s;
+}
+
+.input-field input {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #8d8d8d;
+  letter-spacing: 1px;
+  width: 300px;
+}
+
+.input-field input:focus, .input-field input:valid {
+  outline: none;
+  border: 1px solid #0034de;
+}
+
+.input-field input:focus ~ label, .input-field input:valid ~ label {
+  transform: translateY(-51%)translateX(-10px)scale(.8);
+  background-color: #fff;
+  padding: 0 5px;
+  color: #0034de;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 100px;
+}
+
+.form .passicon {
+  cursor: pointer;
+  font-size: 1.3rem;
+  position: absolute;
+  top: 6px;
+  right: 8px;
+}
+
+.form .close {
+  display: none;
+}
+
+/*# sourceMappingURL=src_styles_form_b52d8e.css.map*/
