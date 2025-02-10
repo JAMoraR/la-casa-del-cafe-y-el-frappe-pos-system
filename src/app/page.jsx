@@ -6,7 +6,14 @@ import '@/styles/form.css'
 function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    window.location.href = '/dashboard';
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+
+    if (username === 'admin' && password === 'admin') {
+      window.location.href= 'https://la-casa-del-cafe-y-el-frappe-admin.vercel.app/'
+    } else {
+      window.location.href = '/dashboard';
+    }
   };
 
   return (
