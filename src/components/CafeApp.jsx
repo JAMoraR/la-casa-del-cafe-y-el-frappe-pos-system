@@ -4,7 +4,7 @@ import { useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { X, Edit, Check, Search } from "lucide-react"
+import { X, Edit, Check, Search, Plus, Minus, RotateCcw } from "lucide-react"
 
 const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -12,27 +12,27 @@ const removeAccents = (str) => {
 
 const productos = [
   { id: 1, nombre: "Frappe de Frapuchino", precio: 75, categoria: "Frappe Cremosos" },
-  { id: 2, nombre: "Frappe de Oreo con Chocolate", precio: 75, categoria: "Frappe Cremosos" },
-  { id: 3, nombre: "Frappe de Cacao", precio: 65, categoria: "Frappe Cremosos" },
-  { id: 4, nombre: "Frappe de Fresa", precio: 750, categoria: "Frappe Cremosos" },
-  { id: 5, nombre: "Frappe de Chicle Azul", precio: 65, categoria: "Frappe Cremosos" },
-  { id: 6, nombre: "Frappe de Doble Chocolate", precio: 70, categoria: "Frappe Cremosos" },
-  { id: 7, nombre: "Frappe de Gansito", precio: 75, categoria: "Frappe Cremosos" },
-  { id: 8, nombre: "Frappe de Rompope", precio: 70, categoria: "Frappe Cremosos" },
-  { id: 9, nombre: "Frappe de Moka con Chocolate", precio: 70, categoria: "Frappe Cremosos" },
-  { id: 10, nombre: "Frappe de Bombom Esponjoso", precio: 70, categoria: "Frappe Cremosos" },
-  { id: 11, nombre: "Frappe de Vainilla", precio: 70, categoria: "Frappe Cremosos" },
-  { id: 12, nombre: "Frappe de Café", precio: 70, categoria: "Frappe Cremosos" },
-  { id: 13, nombre: "Frappe de Mazapan", precio: 75, categoria: "Frappe Cremosos" },
-  { id: 14, nombre: "Frappe de Fresa", precio: 60, categoria: "Frappe Picositos" },
-  { id: 15, nombre: "Frappe de Piña", precio: 60, categoria: "Frappe Picositos" },
-  { id: 16, nombre: "Frappe de Mango", precio: 60, categoria: "Frappe Picositos" },
-  { id: 17, nombre: "Café Americano", precio: 40, categoria: "Café Caliente" },
-  { id: 18, nombre: "Capuchino", precio: 45, categoria: "Café Caliente" },
-  { id: 19, nombre: "Capuchino con Vainilla", precio: 45, categoria: "Café Caliente" },
-  { id: 20, nombre: "Donas Glaseadas", precio: 45, categoria: "Postres" },
-  { id: 21, nombre: "Fresas con Crema", precio: 45, categoria: "Postres" },
-  { id: 22, nombre: "Del Día", precio: 60, categoria: "Postres" },
+{ id: 2, nombre: "Frappe de Oreo con Chocolate", precio: 75, categoria: "Frappe Cremosos" },
+{ id: 3, nombre: "Frappe de Cacao", precio: 65, categoria: "Frappe Cremosos" },
+{ id: 4, nombre: "Frappe de Fresa", precio: 750, categoria: "Frappe Cremosos" },
+{ id: 5, nombre: "Frappe de Chicle Azul", precio: 65, categoria: "Frappe Cremosos" },
+{ id: 6, nombre: "Frappe de Doble Chocolate", precio: 70, categoria: "Frappe Cremosos" },
+{ id: 7, nombre: "Frappe de Gansito", precio: 75, categoria: "Frappe Cremosos" },
+{ id: 8, nombre: "Frappe de Rompope", precio: 70, categoria: "Frappe Cremosos" },
+{ id: 9, nombre: "Frappe de Moka con Chocolate", precio: 70, categoria: "Frappe Cremosos" },
+{ id: 10, nombre: "Frappe de Bombom Esponjoso", precio: 70, categoria: "Frappe Cremosos" },
+{ id: 11, nombre: "Frappe de Vainilla", precio: 70, categoria: "Frappe Cremosos" },
+{ id: 12, nombre: "Frappe de Café", precio: 70, categoria: "Frappe Cremosos" },
+{ id: 13, nombre: "Frappe de Mazapan", precio: 75, categoria: "Frappe Cremosos" },
+{ id: 14, nombre: "Frappe de Fresa", precio: 60, categoria: "Frappe Picositos" },
+{ id: 15, nombre: "Frappe de Piña", precio: 60, categoria: "Frappe Picositos" },
+{ id: 16, nombre: "Frappe de Mango", precio: 60, categoria: "Frappe Picositos" },
+{ id: 17, nombre: "Café Americano", precio: 40, categoria: "Café Caliente" },
+{ id: 18, nombre: "Capuchino", precio: 45, categoria: "Café Caliente" },
+{ id: 19, nombre: "Capuchino con Vainilla", precio: 45, categoria: "Café Caliente" },
+{ id: 20, nombre: "Donas Glaseadas", precio: 45, categoria: "Postres" },
+{ id: 21, nombre: "Fresas con Crema", precio: 45, categoria: "Postres" },
+{ id: 22, nombre: "Del Día", precio: 60, categoria: "Postres" },
 ]
 
 const categorias = [...new Set(productos.map((p) => p.categoria))]
@@ -40,10 +40,11 @@ const categorias = [...new Set(productos.map((p) => p.categoria))]
 export function CafeApp() {
   const [menuAbierto, setMenuAbierto] = useState(false)
   const [ordenes, setOrdenes] = useState([])
-  const [pedidoActual, setPedidoActual] = useState({})
+  const [ordenActual, setOrdenActual] = useState({})
   const [ordenEnEdicion, setOrdenEnEdicion] = useState(null)
   const [busqueda, setBusqueda] = useState("")
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("")
+  const [siguienteNumeroOrden, setSiguienteNumeroOrden] = useState(1)
 
   const productosFiltrados = useMemo(() => {
     const busquedaSinAcentos = removeAccents(busqueda.toLowerCase())
@@ -89,10 +90,20 @@ export function CafeApp() {
       })
   }, [busqueda, categoriaSeleccionada])
 
+  const ordenesFiltradas = useMemo(() => {
+    return [...ordenes].sort((a, b) => {
+      if (a.estado === "pendiente" && b.estado === "finalizada") return -1
+      if (a.estado === "finalizada" && b.estado === "pendiente") return 1
+      if (a.estado === "pendiente" && b.estado === "pendiente") return b.id - a.id
+      if (a.estado === "finalizada" && b.estado === "finalizada") return b.fechaFinalizacion - a.fechaFinalizacion
+      return 0
+    })
+  }, [ordenes])
+
   const abrirMenu = (orden = null) => {
     if (orden) {
       setOrdenEnEdicion(orden)
-      setPedidoActual(
+      setOrdenActual(
         orden.productos.reduce((acc, item) => {
           acc[item.id] = item.cantidad
           return acc
@@ -100,7 +111,7 @@ export function CafeApp() {
       )
     } else {
       setOrdenEnEdicion(null)
-      setPedidoActual({})
+      setOrdenActual({})
     }
     setBusqueda("")
     setCategoriaSeleccionada("")
@@ -110,20 +121,34 @@ export function CafeApp() {
   const cerrarMenu = () => {
     setMenuAbierto(false)
     setOrdenEnEdicion(null)
-    setPedidoActual({})
+    setOrdenActual({})
     setBusqueda("")
     setCategoriaSeleccionada("")
   }
 
   const actualizarCantidad = (id, cantidad) => {
-    setPedidoActual((prev) => ({
+    setOrdenActual((prev) => ({
       ...prev,
       [id]: Number.parseInt(cantidad) || 0,
     }))
   }
 
-  const realizarPedido = () => {
-    const nuevosPedidos = Object.entries(pedidoActual)
+  const incrementarCantidad = (id) => {
+    setOrdenActual((prev) => ({
+      ...prev,
+      [id]: (prev[id] || 0) + 1,
+    }))
+  }
+
+  const decrementarCantidad = (id) => {
+    setOrdenActual((prev) => ({
+      ...prev,
+      [id]: Math.max((prev[id] || 0) - 1, 0),
+    }))
+  }
+
+  const realizarOrden = () => {
+    const nuevosProductos = Object.entries(ordenActual)
       .filter(([_, cantidad]) => cantidad > 0)
       .map(([id, cantidad]) => {
         const producto = productos.find((p) => p.id === Number.parseInt(id))
@@ -134,15 +159,15 @@ export function CafeApp() {
         }
       })
 
-    if (nuevosPedidos.length > 0) {
+    if (nuevosProductos.length > 0) {
       if (ordenEnEdicion) {
         setOrdenes((prev) =>
           prev.map((orden) =>
             orden.id === ordenEnEdicion.id
               ? {
                   ...orden,
-                  productos: nuevosPedidos,
-                  total: nuevosPedidos.reduce((sum, item) => sum + item.subtotal, 0),
+                  productos: nuevosProductos,
+                  total: nuevosProductos.reduce((sum, item) => sum + item.subtotal, 0),
                 }
               : orden,
           ),
@@ -150,24 +175,47 @@ export function CafeApp() {
       } else {
         const nuevaOrden = {
           id: Date.now(),
-          productos: nuevosPedidos,
-          total: nuevosPedidos.reduce((sum, item) => sum + item.subtotal, 0),
+          numeroOrden: siguienteNumeroOrden,
+          productos: nuevosProductos,
+          total: nuevosProductos.reduce((sum, item) => sum + item.subtotal, 0),
           estado: "pendiente",
         }
         setOrdenes((prev) => [nuevaOrden, ...prev])
+        setSiguienteNumeroOrden((prev) => prev + 1)
       }
       cerrarMenu()
     }
   }
 
   const finalizarOrden = (id) => {
-    setOrdenes((prev) => prev.map((orden) => (orden.id === id ? { ...orden, estado: "finalizada" } : orden)))
+    setOrdenes((prev) =>
+      prev.map((orden) =>
+        orden.id === id ? { ...orden, estado: "finalizada", fechaFinalizacion: Date.now() } : orden,
+      ),
+    )
+  }
+
+  const reiniciarSistema = () => {
+    setSiguienteNumeroOrden(1)
+    setOrdenes([])
+  }
+
+  const manejarBusqueda = (valor) => {
+    setBusqueda(valor)
+    if (valor) {
+      setCategoriaSeleccionada("")
+    }
+  }
+
+  const seleccionarCategoria = (categoria) => {
+    setCategoriaSeleccionada(categoria)
+    setBusqueda("")
   }
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <Button onClick={() => abrirMenu()} className="w-full mb-4">
-        Realizar Nuevo Pedido
+        Realizar Nueva Orden
       </Button>
 
       {menuAbierto && (
@@ -175,7 +223,7 @@ export function CafeApp() {
           <div className="bg-white w-full max-w-md rounded-lg shadow-lg flex flex-col h-[90vh]">
             <div className="p-4 border-b">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">{ordenEnEdicion ? "Editar Pedido" : "Hacer Pedido"}</h2>
+                <h2 className="text-xl font-bold">{ordenEnEdicion ? "Editar Orden" : "Hacer Orden"}</h2>
                 <Button variant="ghost" size="icon" onClick={cerrarMenu}>
                   <X className="h-6 w-6" />
                 </Button>
@@ -187,7 +235,7 @@ export function CafeApp() {
                     type="text"
                     placeholder="Buscar productos..."
                     value={busqueda}
-                    onChange={(e) => setBusqueda(e.target.value)}
+                    onChange={(e) => manejarBusqueda(e.target.value)}
                     className="border-0 focus:ring-0"
                   />
                 </div>
@@ -195,7 +243,7 @@ export function CafeApp() {
               <div className="flex flex-wrap gap-2">
                 <Button
                   variant={categoriaSeleccionada === "" ? "default" : "outline"}
-                  onClick={() => setCategoriaSeleccionada("")}
+                  onClick={() => seleccionarCategoria("")}
                   size="sm"
                 >
                   Todos
@@ -204,7 +252,7 @@ export function CafeApp() {
                   <Button
                     key={categoria}
                     variant={categoriaSeleccionada === categoria ? "default" : "outline"}
-                    onClick={() => setCategoriaSeleccionada(categoria)}
+                    onClick={() => seleccionarCategoria(categoria)}
                     size="sm"
                   >
                     {categoria}
@@ -217,25 +265,35 @@ export function CafeApp() {
                 <div key={producto.id} className="mb-4 p-2 border rounded">
                   <h3 className="font-semibold">{producto.nombre}</h3>
                   <p className="text-sm text-gray-600 mb-2">${producto.precio.toFixed(2)}</p>
-                  <div className="flex items-center">
-                    <Label htmlFor={`cantidad-${producto.id}`} className="mr-2">
-                      Cantidad:
-                    </Label>
-                    <Input
-                      type="number"
-                      id={`cantidad-${producto.id}`}
-                      value={pedidoActual[producto.id] || 0}
-                      onChange={(e) => actualizarCantidad(producto.id, e.target.value)}
-                      min="0"
-                      className="w-20"
-                    />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Label htmlFor={`cantidad-${producto.id}`} className="mr-2">
+                        Cantidad:
+                      </Label>
+                      <Input
+                        type="number"
+                        id={`cantidad-${producto.id}`}
+                        value={ordenActual[producto.id] || ""}
+                        onChange={(e) => actualizarCantidad(producto.id, e.target.value)}
+                        min="0"
+                        className="w-20"
+                      />
+                    </div>
+                    <div className="flex space-x-2">
+                      <Button onClick={() => decrementarCantidad(producto.id)} size="sm">
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                      <Button onClick={() => incrementarCantidad(producto.id)} size="sm">
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
             <div className="p-4 border-t">
-              <Button onClick={realizarPedido} className="w-full">
-                {ordenEnEdicion ? "Actualizar Pedido" : "Confirmar Pedido"}
+              <Button onClick={realizarOrden} className="w-full">
+                {ordenEnEdicion ? "Actualizar Orden" : "Confirmar Orden"}
               </Button>
             </div>
           </div>
@@ -243,14 +301,20 @@ export function CafeApp() {
       )}
 
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Órdenes</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">Órdenes</h2>
+          <Button onClick={reiniciarSistema} size="sm">
+            <RotateCcw className="h-4 w-4 mr-2" />
+            Reiniciar Sistema
+          </Button>
+        </div>
         {ordenes.length === 0 ? (
           <p className="text-gray-600">No hay órdenes.</p>
         ) : (
-          ordenes.map((orden) => (
+          ordenesFiltradas.map((orden) => (
             <div key={orden.id} className="bg-white p-4 rounded-lg shadow mb-4">
               <div className="flex justify-between items-center mb-2">
-                <h3 className="font-semibold">Orden #{orden.id}</h3>
+                <h3 className="font-semibold">Orden #{orden.numeroOrden}</h3>
                 <div className="flex space-x-2">
                   {orden.estado === "pendiente" && (
                     <>
